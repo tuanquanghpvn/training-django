@@ -9,10 +9,10 @@ urlpatterns = [
     url(r'^logout', dashboard.doLogout),
     url(r'^profile', dashboard.profile), 
     url(r'^$', dashboard.index),
+
     ######################################
     ######################################
     # Url Subject
-
     url(r'^subject/$', subject.index),
     url(r'^subject/create', subject.create),
     url(r'^subject/update', subject.update),
@@ -24,7 +24,6 @@ urlpatterns = [
     ######################################
     ######################################
     # Url Course
-
     url(r'^course/$', course.index),
     url(r'^course/create', course.create),
     url(r'^course/update', course.update),
@@ -36,26 +35,18 @@ urlpatterns = [
 
     ######################################
     ######################################
-    # Url Subject
-
-    url(r'^subject/$', subject.index),
-    url(r'^subject/create', subject.create),
-    url(r'^subject/update', subject.update),
-    url(r'^subject/delete', subject.delete),
-
-    ######################################
-    ######################################
     # Url Task
-
     url(r'^task/$', task.index),
     url(r'^task/create', task.create),
     url(r'^task/update', task.update),
     url(r'^task/delete', task.delete),
+    url(r'^task/detail', task.detail),
+    url(r'^task/add-user', task.add_user_to_task),
+    url(r'^task/remove-user', task.remove_user_in_task),
 
     ######################################
     ######################################
     # Url User
-
     url(r'^user/$', user_profile.index),
     url(r'^user/detail', user_profile.detail),
     url(r'^user/delete', user_profile.delete)

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from apps.data.models import UserProfile, Course, Subject, Task, UserProfileCourse, UserProfileSubject
+from apps.data.models import UserProfile, Course, Subject, Task, UserProfileCourse, UserProfileSubject, UserProfileTask
 
 ###################################################
 ###################################################
@@ -102,3 +102,9 @@ class UserProfileSubjectForm(forms.ModelForm):
     class Meta:
         model = UserProfileSubject
         fields = ['user_profile', 'subject']
+
+class UserProfileTaskForm(forms.ModelForm):
+    """docstring for UserFrofileForm"""
+    class Meta:
+        model = UserProfileTask
+        fields = ['user_profile', 'task']

@@ -1,0 +1,146 @@
+{% extends 'backend/layout/base.html' %}
+{% load staticfiles %}
+
+{% block 'css' %}
+    <link rel="stylesheet" href="{% static 'backend/plugins/select2/select2.min.css' %}">
+{% endblock %}
+
+{% block 'content' %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Course
+            <small>Detail</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/admin/course/">Course</a></li>
+            <li class="active">Detail</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Name Course</b> <a class="pull-right">{{ data.course.name }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Date Begin</b> <a class="pull-right">{{ data.course.begin_at|date:'d/m/y' }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Date End</b> <a class="pull-right">{{ data.course.end_at|date:'d/m/y' }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_1" data-toggle="tab">User In Course</a></li>
+                        <li><a href="#tab_2" data-toggle="tab">Subject In Course</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form method="POST" action="/admin/course/add-user  ">
+                                        {% csrf_token %}
+
+                                        <input type="hidden" name="{{ data.user_profile_course_form.course.name }}" value="{{ data.id_course }}">
+                                        <div class="form-group">
+                                            <label>Add User To Course</label>
+                                            <select class="form-control select2" name="{{ data.user_profile_course_form.user_profile.name }}" multiple="multiple" data-placeholder="Select User" style="width: 100%;">                                    
+                                                {% for user_profile in data.list_user %}
+                                                    <option value="{{ user_profile.user.id }}">{{ user_profile.user.username }}</option>
+                                                    }
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary pull-right">Add</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                                    
+
+                            <hr>
+
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Date Join</th>
+                                    <th>Last Login</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                                {% for item in data.list_trainee %}
+                                    <tr>
+                                        <td>{{ item.user.id }}.</td>
+                                        <td>{{ item.user.username }}</td>
+                                        <td>{{ item.user.email }}</td>
+                                        <td>{{ item.user.date_joined|date:'d/m/Y' }}</td>
+                                        <td>{{ item.user.last_login|date:'d/m/Y' }}</td>
+                                        <td class="text-center">
+                                            <a href="#" data-href="/admin/course/remove-user?id={{ item.user.id }}&idCourse={{ data.id_course }}" data-toggle="modal" data-target="#confirm-delete">
+                                                <span class="badge bg-red">Delete</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>    
+                        </div>
+
+                        <div class="tab-pane" id="tab_2">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Begin</th>
+                                    <th>End</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                                {% for item in data.list_subject %}
+                                    <tr>
+                                        <td>{{ item.id }}.</td>
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.description }}</td>
+                                        <td>{{ item.begin_at|date:'d/m/Y' }}</td>
+                                        <td>{{ item.end_at|date:'d/m/Y' }}</td>
+                                        <td>{{ item.status }}</td>
+                                        <td class="text-center">
+                                            <a href="#" data-href="/admin/course/remove-subject?id={{ item.id }}&idCourse={{ data.id_course }}" data-toggle="modal" data-target="#confirm-delete">
+                                                <span class="badge bg-red">Delete</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- /.content -->
+{% endblock %}
+
+{% block 'js' %}
+    <script src="{% static 'backend/plugins/select2/select2.full.min.js' %}"></script>
+    <script type="text/javascript">
+        $(".select2").select2();
+    </script>
+{% endblock %}

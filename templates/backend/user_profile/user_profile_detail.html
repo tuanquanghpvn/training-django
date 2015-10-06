@@ -1,0 +1,127 @@
+{% extends 'backend/layout/base.html' %}
+{% load staticfiles %}
+
+{% block 'css' %}
+{% endblock %}
+
+{% block 'content' %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            User
+            <small>Detail</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/admin/user">User</a></li>
+            <li class="active">Detail</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle" src="{% static 'backend/dist/img/avatar5.png' %}" alt="User profile picture">
+
+                        <h3 class="profile-username text-center">{{ data.user_profile.user.username }}</h3>
+                        <p class="text-muted text-center">{{ data.user_profile.user.email }}</p>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Date Join</b> <a class="pull-right">{{ data.user_profile.user.date_joined }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Last Login</b> <a class="pull-right">{{ data.user_profile.user.last_login|default_if_none:"" }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_1" data-toggle="tab">User Course</a></li>
+                        <li><a href="#tab_2" data-toggle="tab">User Subject</a></li>
+                        <li><a href="#tab_3" data-toggle="tab">User Task</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Begin</th>
+                                    <th>End</th>
+                                    <th>Status</th>
+                                </tr>
+                                {% for item in data.list_course %}
+                                    <tr>
+                                        <td>{{ item.course.id }}.</td>
+                                        <td>{{ item.course.name }}</td>
+                                        <td>{{ item.course.description }}</td>
+                                        <td>{{ item.course.begin_at|date:'d/m/Y' }}</td>
+                                        <td>{{ item.course.end_at|date:'d/m/Y' }}</td>
+                                        <td>{{ item.status }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+
+                        <div class="tab-pane" id="tab_2">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Begin</th>
+                                    <th>End</th>
+                                    <th>Status</th>
+                                </tr>
+                                {% for item in data.list_subject %}
+                                    <tr>
+                                        <td>{{ item.subject.id }}.</td>
+                                        <td>{{ item.subject.name }}</td>
+                                        <td>{{ item.subject.description }}</td>
+                                        <td>{{ item.subject.begin_at|date:'d/m/Y' }}</td>
+                                        <td>{{ item.subject.end_at|date:'d/m/Y' }}</td>
+                                        <td>{{ item.status }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>    
+                        </div>
+
+                        <div class="tab-pane" id="tab_3">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Subject</th>
+                                    <th>Name</th>
+                                    <th>Begin</th>
+                                    <th>End</th>
+                                    <th>Status</th>
+                                </tr>
+                                {% for item in data.list_task %}
+                                    <tr>
+                                        <td>{{ item.task.id }}.</td>
+                                        <td>{{ item.task.subject.name }}</td>
+                                        <td>{{ item.task.name }}</td>
+                                        <td>{{ item.task.begin_at|date:'d/m/Y' }}</td>
+                                        <td>{{ item.task.end_at|date:'d/m/Y' }}</td>
+                                        <td>{{ item.status }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock %}
+
+{% block 'js' %}
+{% endblock %}

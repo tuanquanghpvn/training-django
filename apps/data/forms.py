@@ -9,6 +9,7 @@ from apps.data.models import UserProfile, Course, Subject, Task, UserProfileCour
 ###################################################
 # User Form
 
+# Form update password admin login
 class ProfileForm(forms.ModelForm):
     """docstring for ProfileForm"""
     password2 = forms.CharField(label='Re Password')
@@ -34,18 +35,24 @@ class ProfileForm(forms.ModelForm):
             user_profile.save()
         return user_profile
 
+# Form update info user
 class UserForm(forms.ModelForm):
     """docstring for UserForm"""
     class Meta:
         model = User
         fields = '__all__'
 
+# Form save more field in user
 class UserProfileForm(forms.ModelForm):
     """docstring for UserFrofileForm"""
     class Meta:
         model = UserProfile
         fields = '__all__'
 
+###################################################
+###################################################
+###################################################
+# Form Create, update, validate course
 class CourseForm(forms.ModelForm):
     """docstring for CourseForm"""
     class Meta:
@@ -60,6 +67,10 @@ class CourseForm(forms.ModelForm):
         if end_at and begin_at and end_at < begin_at:
             raise ValidationError({'end_at': ["Date End must be larger Date Begin!",]})
 
+###################################################
+###################################################
+###################################################
+# Form Create, update, validate subject
 class SubjectForm(forms.ModelForm):
     """docstring for CourseForm"""
     course = forms.ModelMultipleChoiceField(queryset=Course.objects.all())
@@ -76,6 +87,10 @@ class SubjectForm(forms.ModelForm):
         if end_at and begin_at and end_at < begin_at:
             raise ValidationError({'end_at': ["Date End must be larger Date Begin!",]})
 
+###################################################
+###################################################
+###################################################
+# Form Create, update, validate task
 class TaskForm(forms.ModelForm):
     """docstring for CourseForm"""
     class Meta:
@@ -90,6 +105,11 @@ class TaskForm(forms.ModelForm):
 
         if end_at and begin_at and end_at < begin_at:
             raise ValidationError({'end_at': ["Date End must be larger Date Begin!",]})
+
+###################################################
+###################################################
+###################################################
+# Form related user with course, subject, task
 
 class UserProfileCourseForm(forms.ModelForm):
     """docstring for UserFrofileForm"""

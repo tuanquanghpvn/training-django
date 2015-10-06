@@ -6,6 +6,9 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 
+#############################################################
+#############################################################
+# Function view course_index
 @permission_required('is_staff', login_url='/admin/login')
 def index(request):
     info = {
@@ -17,6 +20,9 @@ def index(request):
     }
     return render(request, 'backend/course/course_index.html', info)
 
+#############################################################
+#############################################################
+# Function view course_create
 @permission_required('is_staff', login_url='/admin/login')
 def create(request):
     info = {
@@ -43,6 +49,9 @@ def create(request):
             info['data'] = course_form
     return render(request, 'backend/course/course_create.html', info)
 
+#############################################################
+#############################################################
+# Function view udpate course
 @permission_required('is_staff', login_url='/admin/login')
 def update(request):
     id_course = request.GET.get('id', None)
@@ -71,6 +80,9 @@ def update(request):
             info['data'] = course_form
     return render(request, 'backend/course/course_update.html', info)    
 
+#############################################################
+#############################################################
+# Function delete course
 @permission_required('is_staff', login_url='/admin/login')
 def delete(request):
     id_course = request.GET.get('id', None)
@@ -78,6 +90,9 @@ def delete(request):
         Course.objects.get(id=id_course).delete()
     return redirect('/admin/course')
 
+#############################################################
+#############################################################
+# Function view detail course: Add user to course, Remove user in course, Remove subject in course
 @permission_required('is_staff', login_url='/admin/login')
 def detail(request):
     info = {

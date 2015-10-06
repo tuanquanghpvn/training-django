@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import permission_required
 
 from apps.data.forms import ProfileForm
 
+#############################################################
+#############################################################
+# Function view login
 def doLogin(request):
     info = {
         'status': True,
@@ -33,10 +36,16 @@ def doLogin(request):
             }
     return render(request, 'backend/layout/login.html', { 'info': info })
 
+#############################################################
+#############################################################
+# Function view logout
 def doLogout(request):
     logout(request)
     return redirect('/admin/login')
 
+#############################################################
+#############################################################
+# Function view dashboard index
 @permission_required('is_staff', login_url='/admin/login')
 def index(request):
     info = {

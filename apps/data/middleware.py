@@ -2,7 +2,9 @@ from datetime import datetime, timedelta
 from django.conf import settings
 from django.contrib import auth
 
-
+#############################################################
+#############################################################
+# Middleware: Auto Logout session if user not in site
 class AutoLogout:
     def process_request(self, request):
         if not request.user.is_authenticated():

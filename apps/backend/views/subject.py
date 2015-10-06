@@ -6,6 +6,9 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 
+#############################################################
+#############################################################
+# Function view list subject
 @permission_required('is_staff', login_url='/admin/login')
 def index(request):
     info = {
@@ -17,6 +20,9 @@ def index(request):
     }
     return render(request, 'backend/subject/subject_index.html', info)
 
+#############################################################
+#############################################################
+# Function view create subject
 @permission_required('is_staff', login_url='/admin/login')
 def create(request):
     info = {
@@ -49,6 +55,9 @@ def create(request):
 
     return render(request, 'backend/subject/subject_create.html', info)
 
+#############################################################
+#############################################################
+# Function view update subject
 @permission_required('is_staff', login_url='/admin/login')
 def update(request):
     id_subject = request.GET.get('id', None)
@@ -81,6 +90,9 @@ def update(request):
             info['data'] = subject_form
     return render(request, 'backend/subject/subject_update.html', info)    
 
+#############################################################
+#############################################################
+# Function view delete subject
 @permission_required('is_staff', login_url='/admin/login')
 def delete(request):
     id_subject = request.GET.get('id', None)
@@ -88,6 +100,9 @@ def delete(request):
         Subject.objects.get(id=id_subject).delete()
     return redirect('/admin/subject')
 
+#############################################################
+#############################################################
+# Function view show detail subject Add user to subject, Remove user in subject
 @permission_required('is_staff', login_url='/admin/login')
 def detail(request):
     info = {

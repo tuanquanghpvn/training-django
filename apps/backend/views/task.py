@@ -6,6 +6,9 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 
+#############################################################
+#############################################################
+# Function view list task
 @permission_required('is_staff', login_url='/admin/login')
 def index(request):
     info = {
@@ -17,6 +20,9 @@ def index(request):
     }
     return render(request, 'backend/task/task_index.html', info)
 
+#############################################################
+#############################################################
+# Function view create task
 @permission_required('is_staff', login_url='/admin/login')
 def create(request):
     info = {
@@ -43,6 +49,9 @@ def create(request):
             info['data'] = task_form
     return render(request, 'backend/task/task_create.html', info)
 
+#############################################################
+#############################################################
+# Function view update task
 @permission_required('is_staff', login_url='/admin/login')
 def update(request):
     id_task = request.GET.get('id', None)
@@ -71,6 +80,9 @@ def update(request):
             info['data'] = task_form
     return render(request, 'backend/task/task_update.html', info)    
 
+#############################################################
+#############################################################
+# Function view delete task
 @permission_required('is_staff', login_url='/admin/login')
 def delete(request):
     id_task = request.GET.get('id', None)
@@ -78,7 +90,9 @@ def delete(request):
         Task.objects.get(id=id_task).delete()
     return redirect('/admin/task')
 
-
+#############################################################
+#############################################################
+# Function view detal task: Add user to task, Remove user in task
 @permission_required('is_staff', login_url='/admin/login')
 def detail(request):
     info = {

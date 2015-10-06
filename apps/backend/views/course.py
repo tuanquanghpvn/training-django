@@ -116,7 +116,8 @@ def add_user_to_course(request):
 def remove_user_in_course(request):
     id_user = request.GET.get('id', None)
     id_course = request.GET.get('idCourse', None)
-    Course.objects.get(id=id_course).user_profile.remove(user__id=id_user)
+    # Course.objects.get(id=id_course).user_profile.remove(user__id=id_user)
+    UserProfileCourse.objects.get(user_profile__user__id=id_user, course__id=id_course).delete()
 
     url = '/admin/course/detail?id=' + str(id_course)
     return redirect(url)

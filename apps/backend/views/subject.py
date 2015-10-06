@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from apps.data.models import Course, Subject, UserProfile, UserProfileSubject, Task, UserProfileTask
+from apps.data.models import Course, Subject, UserProfile, UserProfileSubject, UserProfileCourse
 from apps.data.forms import SubjectForm, UserProfileSubjectForm
 from datetime import datetime
 
@@ -101,7 +101,7 @@ def detail(request):
     if id_subject:
         info['data']['user_profile_subject_form'] = UserProfileSubjectForm()
         info['data']['id_subject'] = id_subject
-        info['data']['list_user'] = UserProfile.objects.exclude(user__id__in=Subject.objects.get(id=id_subject).user_profile.all())
+        info['data']['list_user'] = UserProfileCourse.objects.exclude(user_profile__user__id__in=Subject.objects.get(id=id_subject).user_profile.all())
         info['data']['subject'] = Subject.objects.get(id=id_subject)
         info['data']['list_trainee'] = Subject.objects.get(id=id_subject).user_profile.all()
     return render(request, 'backend/subject/subject_detail.html', info)
@@ -125,7 +125,7 @@ def add_user_to_subject(request):
 def remove_user_in_subject(request):
     id_user = request.GET.get('id', None)
     id_subject = request.GET.get('idSubject', None)
-    Subject.objects.get(id=id_subject).user_profile.remove(id_user)
+    UserProfileSubject.objects.get(user_profile__user__id=id_user, subject__id=id_subject).delete()
 
     url = '/admin/subject/detail?id=' + str(id_subject)
     return redirect(url)

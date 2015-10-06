@@ -55,8 +55,8 @@
                                         <div class="form-group">
                                             <label>Add User To Subject</label>
                                             <select class="form-control select2" name="{{ data.user_profile_subject_form.user_profile.name }}" multiple="multiple" data-placeholder="Select User" style="width: 100%;">                                    
-                                                {% for user_profile in data.list_user %}
-                                                    <option value="{{ user_profile.user.id }}">{{ user_profile.user.username }}</option>
+                                                {% for user_profile_course in data.list_user %}
+                                                    <option value="{{ user_profile_course.user_profile.user.id }}">{{ user_profile_course.user_profile.user.username }}</option>
                                                     }
                                                 {% endfor %}
                                             </select>
